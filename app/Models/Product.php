@@ -18,6 +18,13 @@ class Product extends Model
         'stock',
         'category_id'
     ];
+
+    public function primaryImage()
+    {
+        return $this->hasOne(ProductImage::class)->where('is_primary', true);
+    }
+
+    
     
     protected static function boot()
     {
@@ -41,5 +48,10 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(ProductReview::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(WishList::class, 'product_id', 'id');
     }
 }
