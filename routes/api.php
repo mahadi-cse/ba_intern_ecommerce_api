@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\WishList\WishListController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 
 // User order routes
 Route::middleware('auth:api')->group(function () {
@@ -52,3 +53,15 @@ Route::group(['prefix' => 'wishlist'], function ($router) {
     Route::get('show', [WishListController::class, 'index']);
 
 });
+
+// Reviews routes
+
+Route::middleware('auth:api')->group(function () {
+    // Reviews
+    Route::post('/reviews/{productId}', [ReviewController::class, 'store']);
+    Route::put('/reviews/{id}', [ReviewController::class, 'update']);
+    Route::delete('/reviews/{id}', [ReviewController::class, 'destroy']);
+});
+
+// Public route
+Route::get('/reviews/{productId}', [ReviewController::class, 'index']);
